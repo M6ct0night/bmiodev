@@ -1,0 +1,88 @@
+import tkinter
+import tkinter as tk
+from tkinter import Entry
+
+# Ana pencere oluşturma
+ekran = tk.Tk()
+ekran.title("bmi kitle indeksi hesap aracı")
+ekran.configure(bg="light blue")
+ekran.minsize(300, 400)
+
+
+#bmi endeks hesabı için
+def endekshesap(boy,kilo):
+    try:
+        boy = float(boy) / 100  # Boyu metreye çevir
+        kilo = float(kilo)  # Kilo zaten doğru tipte olmalı
+        hesap = kilo / (boy ** 2)  # BMI formülü
+        BMI = round(hesap, 2)
+        return BMI
+    except ValueError:
+        hata()  # Hata durumunda hata mesajını göster
+        return None
+
+#form analiz
+def formlar(BMI):
+    if BMI < 19:
+        ks="zayıf"
+        return ks
+    elif BMI >= 19 and BMI < 25:
+        ks="normal"
+        return ks
+    elif BMI >= 25 and BMI < 30:
+        ks="şişman"
+        return ks
+    elif BMI >= 30 and BMI < 35:
+        ks="obez"
+        return ks
+    else:
+        ks="morbid obez"
+        return ks
+
+
+def yazıçıkar(y, m):
+
+    cıktı=tk.Label(ekran,text=f"BMİ :{y} ,vücud formunuz {m}",fg="black")
+    cıktı.grid(row=8 ,column=15, padx=10 , pady=10)
+
+def hata():
+    cıktı = tk.Label(ekran, text="lütfen geçerli değerler giriniz", fg="red")
+    cıktı.grid(row=8, column=15, padx=10, pady=10)
+
+#def click():
+
+
+
+def click():
+    zn = boyi.get()
+    nx = kgi.get()
+    y = endekshesap(zn,nx)
+    m = formlar(y)
+    yazıçıkar(y,m)
+
+
+#giris texti
+yazı1=tkinter.Label(ekran,bg="white",text=f"vücut kitle indeksi hesaplama aracı\nbminizi ölçmek için istenen değerleri giriniz ",fg="black")
+yazı1.grid(row=1,column=15,padx=10,pady=10)
+
+
+yazı2=tkinter.Label(ekran,text=f"boyunuzu giriniz (cm)",fg="black")
+yazı2.grid(row=2,column=15,padx=10,pady=10)
+
+boyi=tkinter.Entry(ekran,text="boyunuzu giriniz. örn:192 ",fg="black")
+boyi.grid(row=3,column=15,padx=10,pady=1)
+
+yazı3=tkinter.Label(ekran,text=f"kilonuzu giriniz (kg)",fg="black")
+yazı3.grid(row=4,column=15,padx=10,pady=10)
+
+kgi=tkinter.Entry(ekran,fg="black")
+kgi.grid(row=6,column=15,padx=10,pady=1)
+
+dugme = tkinter.Button(ekran, text="Hesapla", width=6, command=click, bg="pink",)
+dugme.grid(row=7,column=15,padx=10,pady=10)
+
+
+
+
+
+ekran.mainloop()
